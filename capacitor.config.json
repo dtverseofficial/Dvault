@@ -1,0 +1,8 @@
+{
+  "appId": "com.dtverse.dvault",
+  "appName": "Dvault",
+  "webDir": ".",
+  "server": {
+    "androidScheme": "https"
+  }
+}
