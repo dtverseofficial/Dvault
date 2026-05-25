@@ -1,7 +1,8 @@
 {
   "name": "dvault",
   "version": "1.0.0",
-  "description": "Dvault - Offline First Digital Memory Vault",
+  "description": "Dvault app",
+  "main": "index.js",
   "scripts": {
     "build": "echo Build complete",
     "sync": "npx cap sync android"
