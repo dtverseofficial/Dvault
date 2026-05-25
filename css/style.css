@@ -23,3 +23,44 @@
 .sidebar{overflow:hidden}.nav-all{overflow:visible;gap:.12rem}.nav-link{padding:.43rem .45rem;font-size:.8rem}.sidebar-footer .nav-link{justify-content:flex-start}.topbar .menu-btn{width:auto;min-width:44px}
 @media(max-width:980px){.stat-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:760px){.grid{grid-template-columns:1fr}.actions{justify-content:flex-start}.icon-btn.action-btn{font-size:.7rem;padding:0 .45rem}.icon-btn.action-btn span:not(.svg-icon){display:none}.icon-btn.action-btn{width:34px;min-width:34px;padding:0}.topbar .menu-btn span:not(.svg-icon){display:none}.topbar .menu-btn{width:44px}}
+
+/* =========================================================
+   Tiny fullscreen/status-bar safety gap
+   Added only to prevent content touching Android/iOS status bar.
+   No colors or UI styling changed.
+========================================================= */
+:root{
+  --dt-status-gap: 3mm;
+}
+
+body{
+  padding-top: var(--dt-status-gap);
+  box-sizing: border-box;
+}
+
+/* Shift common fixed app elements down without changing design */
+.sidebar,
+.topbar,
+.app-header,
+.header,
+.navbar,
+.mobile-header{
+  margin-top: var(--dt-status-gap);
+}
+
+/* Mobile fullscreen/PWA notch support */
+@supports (padding-top: env(safe-area-inset-top)){
+  body{
+    padding-top: calc(var(--dt-status-gap) + env(safe-area-inset-top));
+  }
+
+  .sidebar,
+  .topbar,
+  .app-header,
+  .header,
+  .navbar,
+  .mobile-header{
+    margin-top: calc(var(--dt-status-gap) + env(safe-area-inset-top));
+  }
+}
+
