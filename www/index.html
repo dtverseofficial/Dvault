@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dvault • Access</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+</head>
+<body class="auth-body">
+  <div class="bg-orbs"><span></span><span></span><span></span></div>
+
+  <main class="auth-page-shell fade-in">
+    <section class="auth-card glass-card">
+      <div class="auth-logo" aria-hidden="true">
+        <svg viewBox="0 0 48 48" role="img" aria-label="Vault logo">
+          <path d="M24 5 40 13v11c0 10.5-6.8 16.6-16 20-9.2-3.4-16-9.5-16-20V13L24 5Z" fill="none" stroke="#6ea8fe" stroke-width="3"/>
+          <path d="M18 24h12M24 18v12" stroke="#8bb8ff" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div class="auth-heading">
+        <p class="eyebrow">Dvault</p>
+        <h1>Access your vault</h1>
+        <p>Use cloud to sync between devices, create a new account, local vault.</p>
+      </div>
+
+      <div class="auth-tabs" role="tablist" aria-label="Access options">
+        <button class="auth-tab active" type="button" data-tab="signin" role="tab" aria-selected="true">Sign in</button>
+        <button class="auth-tab" type="button" data-tab="signup" role="tab" aria-selected="false">Create account</button>
+        <button class="auth-tab" type="button" data-tab="offline" role="tab" aria-selected="false">Local mode</button>
+      </div>
+
+      <form id="signinForm" class="auth-panel active" data-panel="signin">
+        <label>Email
+          <input type="email" id="signinEmail" required autocomplete="email" placeholder="you@example.com">
+        </label>
+        <label>Password
+          <input type="password" id="signinPassword" required autocomplete="current-password" placeholder="Your password">
+        </label>
+        <button class="btn primary full" type="submit">
+          <span class="mini-icon icon-cloud" aria-hidden="true"></span>
+          Sign in to cloud vault
+        </button>
+        <button id="googleBtn" class="btn ghost full" type="button">
+          <span class="mini-icon icon-google" aria-hidden="true"></span>
+          Continue with Google
+        </button>
+      </form>
+
+      <form id="signupForm" class="auth-panel" data-panel="signup">
+        <label>Display name
+          <input type="text" id="signupName" required autocomplete="name" placeholder="Your name">
+        </label>
+        <label>Email
+          <input type="email" id="signupEmail" required autocomplete="email" placeholder="you@example.com">
+        </label>
+        <label>Password
+          <input type="password" id="signupPassword" required minlength="6" autocomplete="new-password" placeholder="Minimum 6 characters">
+        </label>
+        <button class="btn primary full" type="submit">
+          <span class="mini-icon icon-user-plus" aria-hidden="true"></span>
+          Create synced vault
+        </button>
+      </form>
+
+      <div id="offlineForm" class="auth-panel" data-panel="offline">
+        <div class="offline-note">
+          <span class="mini-icon icon-offline" aria-hidden="true"></span>
+          <div>
+            <strong>Device-only vault</strong>
+            <p>No login. Nothing goes to Server. Data is saved in your device locally.</p>
+          </div>
+        </div>
+        <label>Display name
+          <input id="offlineName" placeholder="Example: Doraemon">
+        </label>
+        <button id="offlineBtn" class="btn primary full" type="button">
+          <span class="mini-icon icon-device" aria-hidden="true"></span>
+          Open offline vault
+        </button>
+        <small class="helper-text">Use Backup and Restore from Settings because data stays only on this device/browser.</small>
+      </div>
+    </section>
+  </main>
+
+  <div id="toastRoot" class="toast-root"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script type="module" src="js/auth.js"></script><script src="buy-coffee.js"></script>
+</body>
+</html>

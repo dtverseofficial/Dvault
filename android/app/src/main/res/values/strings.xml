@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Dvault</string>
+    <string name="title_activity_main">Dvault</string>
+    <string name="package_name">com.dtverse.dvault</string>
+    <string name="custom_url_scheme">com.dtverse.dvault</string>
+</resources>
