@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "appId": "com.dtverse.dvault",
+      "appId": "7d4b39db",
       "root": ".",
       "webDir": "www",
       "dependencyInstallCommand": "npm install",
