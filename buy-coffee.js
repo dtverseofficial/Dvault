@@ -8,14 +8,52 @@
   const UPI_ID = "tiwaridevendraa@ybl";
   const UPI_NAME = "DTverse";
 
-  // SOCIALS
   const WEBSITE = "https://dtverseofficial.netlify.app";
   const GITHUB = "https://github.com/dtverseofficial";
   const TELEGRAM = "https://t.me/dtverse";
   const INSTAGRAM = "https://instagram.com/devvv.ir";
 
-  const upiLink =
-    `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(UPI_NAME)}&cu=INR`;
+  const QR_IMAGE_URL =
+    "https://res.cloudinary.com/duwpxpod6/image/upload/f_auto,q_auto/DTverse_UPI_i4wms8";
+
+  // =========================
+  // TOAST
+  // =========================
+
+  function showToast(msg) {
+    const t = document.createElement("div");
+
+    t.textContent = msg;
+
+    t.style.cssText = `
+      position:fixed;
+      bottom:90px;
+      right:18px;
+      background:#111827;
+      color:#fff;
+      padding:10px 14px;
+      border-radius:10px;
+      font:600 13px system-ui;
+      z-index:999999;
+      box-shadow:0 10px 30px rgba(0,0,0,.3);
+      opacity:0;
+      transform:translateY(10px);
+      transition:.25s ease;
+    `;
+
+    document.body.appendChild(t);
+
+    requestAnimationFrame(() => {
+      t.style.opacity = "1";
+      t.style.transform = "translateY(0)";
+    });
+
+    setTimeout(() => {
+      t.style.opacity = "0";
+      t.style.transform = "translateY(10px)";
+      setTimeout(() => t.remove(), 300);
+    }, 2200);
+  }
 
   // =========================
   // STYLE
@@ -24,7 +62,6 @@
   const style = document.createElement("style");
 
   style.textContent = `
-
     .dt-coffee-wrap{
       position:fixed;
       right:18px;
@@ -39,18 +76,12 @@
     .dt-coffee-hide,
     .dt-coffee-option,
     .dt-socials a{
-
       border:1px solid rgba(255,255,255,.16);
-
       background:rgba(255,255,255,.08);
-
       backdrop-filter:blur(18px);
       -webkit-backdrop-filter:blur(18px);
-
-      box-shadow:
-        0 8px 32px rgba(0,0,0,.25),
+      box-shadow:0 8px 32px rgba(0,0,0,.25),
         inset 0 1px 1px rgba(255,255,255,.08);
-
       transition:.25s ease;
     }
 
@@ -58,7 +89,7 @@
       color:white;
       padding:12px 16px;
       border-radius:999px;
-      font:600 14px system-ui,sans-serif;
+      font:600 14px system-ui;
       cursor:pointer;
     }
 
@@ -84,14 +115,10 @@
       position:fixed;
       inset:0;
       z-index:99998;
-
       display:none;
       place-items:center;
-
       background:rgba(0,0,0,.5);
-
       backdrop-filter:blur(8px);
-      -webkit-backdrop-filter:blur(8px);
     }
 
     .dt-coffee-overlay.show{
@@ -99,29 +126,15 @@
     }
 
     .dt-coffee-card{
-
       width:min(92vw,360px);
-
       padding:24px;
-
       border-radius:24px;
-
       background:rgba(17,24,39,.72);
-
       border:1px solid rgba(255,255,255,.12);
-
       backdrop-filter:blur(22px);
-      -webkit-backdrop-filter:blur(22px);
-
-      box-shadow:
-        0 20px 80px rgba(0,0,0,.45),
-        inset 0 1px 1px rgba(255,255,255,.08);
-
-      text-align:center;
-
       color:white;
-
-      font-family:system-ui,sans-serif;
+      text-align:center;
+      font-family:system-ui;
     }
 
     .dt-coffee-card h2{
@@ -134,90 +147,54 @@
       margin:0 0 18px;
       color:#cbd5e1;
       font-size:14px;
-      line-height:1.5;
     }
 
     .dt-coffee-option{
-
       width:100%;
-
       margin:8px 0;
-
       padding:14px;
-
       border-radius:16px;
-
       color:white;
-
-      font-size:15px;
       font-weight:700;
-
       cursor:pointer;
     }
 
     .dt-socials{
-
       margin-top:18px;
-
       display:flex;
       justify-content:center;
       gap:12px;
     }
 
     .dt-socials a{
-
       width:44px;
       height:44px;
-
       border-radius:50%;
-
       display:flex;
       align-items:center;
       justify-content:center;
-
       text-decoration:none;
     }
 
     .dt-socials a svg{
-      width:20px;
-      height:20px;
+      width:22px;
+      height:22px;
       fill:white;
     }
 
     .dt-close{
-
       margin-top:14px;
-
       background:none;
       border:none;
-
       color:#94a3b8;
-
       cursor:pointer;
-
-      font-size:14px;
     }
-
-    @media(max-width:500px){
-
-      .dt-coffee-wrap{
-        right:12px;
-        bottom:14px;
-      }
-
-      .dt-coffee-btn{
-        padding:11px 14px;
-        font-size:13px;
-      }
-
-    }
-
   `;
 
   document.head.appendChild(style);
 
   // =========================
-  // FLOATING BUTTON
+  // FLOAT BUTTON
   // =========================
 
   const wrap = document.createElement("div");
@@ -233,7 +210,6 @@
 
   wrap.appendChild(hideBtn);
   wrap.appendChild(btn);
-
   document.body.appendChild(wrap);
 
   // =========================
@@ -244,15 +220,11 @@
   overlay.className = "dt-coffee-overlay";
 
   overlay.innerHTML = `
-
     <div class="dt-coffee-card">
 
       <h2>Support DTverse ☕</h2>
 
-      <p>
-        If my projects helped you,
-        you can support DTverse here.
-      </p>
+      <p>If my projects helped you, support here.</p>
 
       <button class="dt-coffee-option" id="dtPaypalBtn">
         PayPal
@@ -266,48 +238,37 @@
 
         <!-- WEBSITE -->
         <a href="${WEBSITE}" target="_blank" title="Website">
-
           <svg viewBox="0 0 24 24">
-            <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm6.92 9h-3.05a15.7 15.7 0 00-1.38-5.03A8.02 8.02 0 0118.92 11zM12 4c1.15 1.58 1.96 3.94 2.13 7H9.87C10.04 7.94 10.85 5.58 12 4zM4.08 13h3.05a15.7 15.7 0 001.38 5.03A8.02 8.02 0 014.08 13zm3.05-2H4.08a8.02 8.02 0 014.43-5.03A15.7 15.7 0 007.13 11zm4.87 9c-1.15-1.58-1.96-3.94-2.13-7h4.26c-.17 3.06-.98 5.42-2.13 7zm2.49-1.97A15.7 15.7 0 0015.87 13h3.05a8.02 8.02 0 01-4.43 5.03z"/>
+            <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 2c1.7 2 2.7 4.5 2.9 7H9.1C9.3 8.5 10.3 6 12 4zm-6.9 7h3.2c-.2 2.5-.8 4.8-1.6 6.5A8 8 0 015.1 11zm3.2 0h6.6c-.2 3-1.2 5.5-3.3 7-2.1-1.5-3.1-4-3.3-7zm8.2 0h3.2a8 8 0 01-1.6 6.5c-.8-1.7-1.4-4-1.6-6.5zm3.2-2h-3.2c-.2-2.5-.8-4.8-1.6-6.5A8 8 0 0118.9 9z"/>
           </svg>
-
         </a>
 
         <!-- GITHUB -->
         <a href="${GITHUB}" target="_blank" title="GitHub">
-
           <svg viewBox="0 0 24 24">
-            <path d="M12 .5a12 12 0 00-3.79 23.4c.6.11.82-.26.82-.58v-2.24c-3.34.73-4.04-1.42-4.04-1.42-.55-1.38-1.33-1.75-1.33-1.75-1.08-.74.08-.73.08-.73 1.2.08 1.83 1.23 1.83 1.23 1.06 1.81 2.79 1.29 3.47.99.11-.77.42-1.29.76-1.58-2.67-.3-5.47-1.33-5.47-5.92 0-1.31.47-2.38 1.23-3.22-.12-.3-.53-1.53.12-3.18 0 0 1-.32 3.3 1.23a11.4 11.4 0 016 0c2.3-1.55 3.3-1.23 3.3-1.23.65 1.65.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.6-2.8 5.61-5.48 5.91.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.82.58A12 12 0 0012 .5z"/>
+            <path d="M12 .5A11.5 11.5 0 000 12c0 5.2 3.3 9.6 8 11.2.6.1.8-.2.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11 11 0 016 0C16.9 5.1 18 5.4 18 5.4c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.3.8 1 .8 2.1v3.2c0 .4.2.7.8.6A11.5 11.5 0 0024 12 11.5 11.5 0 0012 .5z"/>
           </svg>
-
         </a>
 
         <!-- TELEGRAM -->
         <a href="${TELEGRAM}" target="_blank" title="Telegram">
-
           <svg viewBox="0 0 24 24">
-            <path d="M9.04 15.47l-.38 5.35c.54 0 .78-.23 1.07-.5l2.56-2.44 5.3 3.88c.97.54 1.65.26 1.91-.9l3.46-16.2h.01c.31-1.45-.52-2.02-1.47-1.67L1.5 10.64c-1.4.55-1.38 1.33-.24 1.68l5.1 1.59L18.2 6.5c.56-.37 1.07-.17.65.2"/>
+            <path d="M9.0 16.0l-.4 5.4c.5 0 .8-.2 1.1-.5l2.5-2.4 5.3 3.9c1 .5 1.7.2 2-.9L23 4c.3-1.4-.5-2-1.5-1.6L1.5 10.6c-1.4.6-1.3 1.3-.2 1.7l5.1 1.6 11.8-7.4c.5-.3 1-.1.6.2z"/>
           </svg>
-
         </a>
 
         <!-- INSTAGRAM -->
         <a href="${INSTAGRAM}" target="_blank" title="Instagram">
-
           <svg viewBox="0 0 24 24">
-            <path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm0 2h10c1.65 0 3 1.35 3 3v10c0 1.65-1.35 3-3 3H7c-1.65 0-3-1.35-3-3V7c0-1.65 1.35-3 3-3zm11.5 1a1.5 1.5 0 100 3 1.5 1.5 0 000-3zM12 7a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6z"/>
+            <path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm10 2H7a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3zm-5 4a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6zm6.5-2a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
           </svg>
-
         </a>
 
       </div>
 
-      <button class="dt-close" id="dtCloseCoffee">
-        Close
-      </button>
+      <button class="dt-close" id="dtCloseCoffee">Close</button>
 
     </div>
-
   `;
 
   document.body.appendChild(overlay);
@@ -316,9 +277,7 @@
   // EVENTS
   // =========================
 
-  btn.onclick = () => {
-    overlay.classList.add("show");
-  };
+  btn.onclick = () => overlay.classList.add("show");
 
   hideBtn.onclick = () => {
     wrap.style.display = "none";
@@ -326,9 +285,7 @@
   };
 
   overlay.onclick = (e) => {
-    if (e.target === overlay) {
-      overlay.classList.remove("show");
-    }
+    if (e.target === overlay) overlay.classList.remove("show");
   };
 
   document.getElementById("dtCloseCoffee").onclick = () => {
@@ -339,8 +296,34 @@
     window.open(PAYPAL_LINK, "_blank");
   };
 
-  document.getElementById("dtUpiBtn").onclick = () => {
-    window.location.href = upiLink;
+  // =========================
+  // UPI (DOWNLOAD QR)
+  // =========================
+
+  document.getElementById("dtUpiBtn").onclick = async () => {
+    try {
+
+      await navigator.clipboard.writeText(UPI_ID);
+      showToast("UPI ID copied ✅");
+
+      showToast("Downloading QR 📥");
+
+      const res = await fetch(QR_IMAGE_URL);
+      const blob = await res.blob();
+
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "DTverse-UPI-QR.png";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      showToast("QR saved to gallery 📁");
+
+    } catch (err) {
+      console.error(err);
+      showToast("Something went wrong ❌");
+    }
   };
 
 })();
