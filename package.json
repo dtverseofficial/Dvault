@@ -2,15 +2,14 @@
   "name": "dvault",
   "version": "1.0.0",
   "description": "Dvault app",
-  "main": "index.js",
   "scripts": {
     "build": "echo Build complete",
-    "sync": "npx cap sync android"
+    "cap": "cap",
+    "sync": "npx --yes cap sync android"
   },
   "dependencies": {
     "@capacitor/android": "^7.0.0",
     "@capacitor/cli": "^7.0.0",
     "@capacitor/core": "^7.0.0"
-  },
-  "devDependencies": {}
+  }
 }
